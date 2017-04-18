@@ -1,0 +1,12 @@
+# This ansible playbook performs setup of a
+# RaspberryPi providing a tor-proxied wifi accesspoint.
+- hosts: all
+    become: false
+    become_user: root
+    vars:
+        - hostname: "zwiebelkuchen"
+
+    tasks:
+      - name: Update system
+          become: true
+          apt: upgrade=safe update_cache=yes
