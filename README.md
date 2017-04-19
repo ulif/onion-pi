@@ -75,7 +75,9 @@ There should be no spaces in this stanza.
 When done, save the file and eject the SD-card properly.
 
 
-### 3) Start Your RaspberryPi
+## Basic Setup
+
+### 1) Start Your RaspberryPi
 
 Stick the prepared SD card into your RaspberryPi.
 
@@ -86,7 +88,7 @@ Otherwise plug in your keyboard and connect the HDMI port with an appropriate
 device. Also plug in the power adapter, which will power up the RaspberryPi.
 
 
-### 4) Setup basic settings
+### 2) Setup basic settings
 
 If you use a TTL connection cable, you can connect to your RaspberryPi doing
 
@@ -121,4 +123,15 @@ Optionally you may:
 - Under 'Localisation Options' pick a special locale
 
 When done, choose "Finish" and reboot.
+
+
+### 3) Setup first Wifi
+
+We need internet access to complete the next steps. This step depends on your
+local networks.
+
+
+## Install Accesspoint
+
+## Install tor
 
