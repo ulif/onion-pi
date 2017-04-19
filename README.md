@@ -1,5 +1,6 @@
 # onion-pi
-Turn a standard Raspbian install into a tor-ified wifi access point with `ansible`
+Turn a standard Raspbian install into a [tor](https://torproject.org)-ified
+wifi access point with [ansible](https://www.ansible.com/).
 
 ## Ingredients
 
@@ -8,13 +9,17 @@ We will make use of
 * 1 RaspberryPi 3
 * 1 micro SD card (min. 4 GB, SDHC, class 10, UHS-I)
 * 1 USB wifi adapter
-* 1 USB TTL connection cable
+* 1 USB TTL connection cable (see below)
 
 If no such connection cable is at hand, we need additionally:
 
 * 1 power adapter
-* 1 blue tooth or USB keyboard
-* 1 device able to display HDMI sighnals from your RaspberryPi
+* 1 keyboard (bluetooth or USB)
+* 1 TV or other device able to display HDMI signals from your RaspberryPi
+
+To setup everything, we additionally need a computer with USB and an SD-card
+reader. If your computer does not have a built-in card-reader, you can use any
+cheap USB-pluggable SD-card reader available at paper stores and similar.
 
 ## Preparation
 
@@ -38,6 +43,8 @@ If so, you can unzip the file with
     $ unzip 2017-04-10-raspbian-jessie-lite.zip
 
 but it is not neccessary for our purposes. We will unzip the file on-the-fly
-and write the contents to a locally attached SD card.
+and write the contents to a locally attached SD card:
 
-Make sure, you know the device name of your SD card.
+    $ zcat 2017-04-10-raspbian-jessie-lite.zip | dd of=/dev/sdXX bs=4M
+
+where ``/dev/sdXX`` refers to your SD-card.
