@@ -1,12 +1,27 @@
 # This ansible playbook performs setup of a
 # RaspberryPi providing a tor-proxied wifi accesspoint.
+#
+# Call from remote:
+#
+#   $ ansible-playbook -i 192.168.178.13, -u pi -k setup_zwiebelkuchen.yml
+#
+# with the real IP used instead.
+#
 - hosts: all
-    become: false
-    become_user: root
-    vars:
-        - hostname: "zwiebelkuchen"
+  become: false
+  become_user: root
+  vars:
+      - hostname: "zwiebelkuchen"
 
-    tasks:
-      - name: Update system
-          become: true
-          apt: upgrade=safe update_cache=yes
+  tasks:
+  - name: Update system
+    become: true
+    apt: upgrade=safe update_cache=yes
+
+  - name: Activate hardware PRNG
+    become: true
+    package:
+        name: "{{ item }}"
+        state: present
+    with_items:
+        - "rng-tools"
