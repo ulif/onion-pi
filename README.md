@@ -53,7 +53,7 @@ and write the contents to a locally attached SD card:
 where ``/dev/sdXX`` refers to your SD-card.
 
 
-### 2) Enable UART access
+### 2) Enable UART Access
 
 You can skip this step, if you use external keyboard/screen for initial setup.
 But if you use a TTL connection cable for it, you have to enable "serial"
@@ -73,3 +73,52 @@ file and add a line at end reading:
 There should be no spaces in this stanza.
 
 When done, save the file and eject the SD-card properly.
+
+
+### 3) Start Your RaspberryPi
+
+Stick the prepared SD card into your RaspberryPi.
+
+If you want to use a TTL cable, connect it now with your Raspi and then plug it
+into a USB port at your computer. This will power up the RaspberryPi.
+
+Otherwise plug in your keyboard and connect the HDMI port with an appropriate
+device. Also plug in the power adapter, which will power up the RaspberryPi.
+
+
+### 4) Setup basic settings
+
+If you use a TTL connection cable, you can connect to your RaspberryPi doing
+
+    $ sudo screen /dev/ttyUSB0 115200
+
+where "/dev/ttyUSB0" should be the RaspberryPi as it appears to your system
+when connected via USB.
+
+If you use an external keyboard/screen, then you should see the startup
+messages already.
+
+Now you should be able to login into your new system (credentials
+"pi"/"raspberry"),
+
+Setup basic settings using
+
+    (raspi) $ sudo raspi-config
+
+In the appearing menu do at least the following:
+
+- Under 'Change User Password'`, well, change your user password
+- Under 'Localisation Options' set the timezone
+- Under 'Localisation Options' set the wi-fi country
+- Under 'Interfacing Options' enable SSH server
+- Under 'Advanced Options' expand the filesystem to use all of the SD card
+
+Optionally you may:
+
+- Under 'Hostname' set a new hostname.
+- Under 'Boot Options' pick console login without autologin
+- Under 'Localisation Options' pick a special keyboard layout
+- Under 'Localisation Options' pick a special locale
+
+When done, choose "Finish" and reboot.
+
