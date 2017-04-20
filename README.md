@@ -130,6 +130,33 @@ When done, choose "Finish" and reboot.
 We need internet access to complete the next steps. This step depends on your
 local networks.
 
+A list of available networks should be provided with:
+
+    (raspi) $ sudo iwlist wlan0 scan | grep ESSID
+
+We then have to edit
+
+    (raspi) $ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+To add a network without password add something like:
+
+    network={
+        ssid="Freifunk"
+        key_mgmt=NONE
+    }
+
+For networks with a password you want to run `wpa_passphrase`:
+
+    (raspi) $ sudo bash
+    (raspi) # wpa_passphrase <SSID> <PASSWORD> >> /etc/wpa_supplicant/wpa_supplicant.conf
+    (raspi) # exit
+
+Afterwards a wifi restart is required. This can be done with:
+
+    (raspi) $ sudo wpa_cli reconfigure
+    Selected interface 'wlan0'
+    OK
+
 
 ## Install Accesspoint
 
