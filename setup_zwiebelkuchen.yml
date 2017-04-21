@@ -18,10 +18,13 @@
     become: true
     apt: upgrade=safe update_cache=yes
 
-  - name: Activate hardware PRNG
+  - name: Install additionally needed packages
     become: true
     package:
         name: "{{ item }}"
         state: present
     with_items:
         - "rng-tools"
+        - "hostapd"
+        - "isc-dhcp-server"
+        - "iptables-persistent"
