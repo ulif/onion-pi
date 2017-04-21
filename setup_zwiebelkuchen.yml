@@ -42,3 +42,12 @@
         dest: "/etc/dhcp/dhcpd.conf"
         regexp: '^option domain-name-servers (.*);$'
         replace: '#option domain-name-servers \1'
+
+  - name: tweak dhcpd.conf - set authoritative flag
+    become: true
+    replace:
+        dest: "/etc/dhcp/dhcpd.conf"
+        regexp: '^#authoritative;$'
+        replace: 'authoritative;'
+
+
