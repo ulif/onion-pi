@@ -28,3 +28,17 @@
         - "hostapd"
         - "isc-dhcp-server"
         - "iptables-persistent"
+
+  - name: tweak dhcpd.conf - unset preset domain-name
+    become: true
+    replace:
+        dest: "/etc/dhcp/dhcpd.conf"
+        regexp: '^option domain-name "example\.org";'
+        replace: '#option domain-name "example.org";'
+
+  - name: tweak dhcpd.conf - unset preset domain-name-servers
+    become: true
+    replace:
+        dest: "/etc/dhcp/dhcpd.conf"
+        regexp: '^option domain-name-servers (.*);$'
+        replace: '#option domain-name-servers \1'
