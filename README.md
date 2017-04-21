@@ -157,6 +157,9 @@ Afterwards a wifi restart is required. This can be done with:
     Selected interface 'wlan0'
     OK
 
+The negotiations might take some seconds, so you should wait for some time,
+until the new connection will be established.
+
 
 ## Install Accesspoint
 
