@@ -69,3 +69,9 @@
                    option domain-name-servers {{ dns_servers }};
             }
 
+  - name: set wlan1 as dhcp-serviced device
+    become: true
+    replace:
+        dest: "/etc/default/isc-dhcp-server"
+        regexp: '^INTERFACES=""'
+        replace: 'INTERFACES="wlan1"'
