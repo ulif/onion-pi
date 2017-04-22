@@ -17,6 +17,13 @@
       - hostname: "zwiebelkuchen"
       - dns_servers: "213.73.91.35, 85.214.20.141"
 
+  handlers:
+  - name: restart dhcpd
+    become: true
+    service:
+        name: "dhcpcd"
+        state: restarted
+
   tasks:
   - name: Update system
     become: true
@@ -39,6 +46,7 @@
         dest: "/etc/dhcp/dhcpd.conf"
         regexp: '^option domain-name "example\.org";'
         replace: '#option domain-name "example.org";'
+    notify: restart dhcpd
 
   - name: tweak dhcpd.conf - unset preset domain-name-servers
     become: true
@@ -46,6 +54,7 @@
         dest: "/etc/dhcp/dhcpd.conf"
         regexp: '^option domain-name-servers (.*);$'
         replace: '#option domain-name-servers \1'
+    notify: restart dhcpd
 
   - name: tweak dhcpd.conf - set authoritative flag
     become: true
@@ -53,6 +62,7 @@
         dest: "/etc/dhcp/dhcpd.conf"
         regexp: '^#authoritative;$'
         replace: 'authoritative;'
+    notify: restart dhcpd
 
   - name: tweak dhcpd.conf - add new subnet
     become: true
@@ -68,6 +78,7 @@
                    option domain-name "local";
                    option domain-name-servers {{ dns_servers }};
             }
+    notify: restart dhcpd
 
   - name: set wlan1 as dhcp-serviced device
     become: true
@@ -75,6 +86,7 @@
         dest: "/etc/default/isc-dhcp-server"
         regexp: '^INTERFACES=""'
         replace: 'INTERFACES="wlan1"'
+    notify: restart dhcpd
 
   - name: setup static ip config for wlan1
     become: true
