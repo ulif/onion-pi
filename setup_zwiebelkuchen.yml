@@ -7,11 +7,15 @@
 #
 # with the real IP used instead.
 #
+# You may want to fiddle with the settings in `vars`. The DNS servers used are
+# from CCC Berlin and from DigitalCourage/FoebuD
+#
 - hosts: all
   become: false
   become_user: root
   vars:
       - hostname: "zwiebelkuchen"
+      - dns_servers: "213.73.91.35, 85.214.20.141"
 
   tasks:
   - name: Update system
@@ -62,6 +66,6 @@
                    default-lease-time 600;
                    max-lease-time 7200;
                    option domain-name "local";
-                   option domain-name-servers 8.8.8.8, 8.8.4.4;
+                   option domain-name-servers {{ dns_servers }};
             }
 
