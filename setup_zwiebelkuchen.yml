@@ -75,3 +75,13 @@
         dest: "/etc/default/isc-dhcp-server"
         regexp: '^INTERFACES=""'
         replace: 'INTERFACES="wlan1"'
+
+  - name: setup static ip config for wlan1
+    become: true
+    copy:
+        src: "interfaces.tmpl"
+        dest: "/etc/network/interfaces"
+        owner: root
+        group: root
+        mode: 0644
+        backup: yes
