@@ -160,8 +160,27 @@ Afterwards a wifi restart is required. This can be done with:
 The negotiations might take some seconds, so you should wait for some time,
 until the new connection will be established.
 
+You can get the IP number assigned by running
+
+    (raspi) $ ifconfig wlan0
+
+There should be one line starting with `inet` or `inet6` stating the current
+IP.
+
+Now try to connect to your zwiebelkuchen via SSH:
+
+    $ ssh pi@<IP-OF-YOUR-RASPBERRY-PI>
+
+You must complete this step at least once to enable flawless `ansible` runs
+later on.
+
 
 ## Install Accesspoint
+
+Before we proceed, we need internet access from the zwiebelkuchen.
+
+
+
 
 ## Install tor
 
