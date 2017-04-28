@@ -113,3 +113,11 @@
         mode: 0600
         backup: yes
     notify: restart hostapd
+
+  - name: tell hostapd.conf location
+    become: true
+    replace:
+        dest: "/etc/default/hostapd"
+        regexp: '^#DAEMON_CONF=""'
+        replace: 'DAEMON_CONF="/etc/hostapd/hostapd.conf"'
+    notify: restart hostapd
