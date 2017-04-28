@@ -127,3 +127,13 @@
         regexp: '^#DAEMON_CONF=""'
         replace: 'DAEMON_CONF="/etc/hostapd/hostapd.conf"'
     notify: restart hostapd
+
+  #
+  # setup NAT
+  #
+  - name: activate ipv4 forwarding
+    become: true
+    lineinfile:
+        dest: /etc/sysctl.conf
+        regexp: "^net.ipv4.ip_forward="
+        line: "net.ipv4.ip_forward=1"
