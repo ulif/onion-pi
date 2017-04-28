@@ -45,6 +45,9 @@
         - "isc-dhcp-server"
         - "iptables-persistent"
 
+  #
+  # configure dhcpd
+  #
   - name: tweak dhcpd.conf - unset preset domain-name
     become: true
     replace:
@@ -103,6 +106,9 @@
         mode: 0644
         backup: yes
 
+  #
+  # configure hostapd
+  #
   - name: install hostapd.conf
     become: true
     copy:
