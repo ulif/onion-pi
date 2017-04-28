@@ -23,6 +23,11 @@
     service:
         name: "dhcpcd"
         state: restarted
+  - name: restart hostapd
+    become: true
+    service:
+        name: "hostapd"
+        state: restarted
 
   tasks:
   - name: Update system
@@ -97,3 +102,14 @@
         group: root
         mode: 0644
         backup: yes
+
+  - name: install hostapd.conf
+    become: true
+    copy:
+        src: "hostapd.conf.tmpl"
+        dest: "/etc/hostapd/hostapd.conf"
+        owner: root
+        group: root
+        mode: 0600
+        backup: yes
+    notify: restart hostapd
