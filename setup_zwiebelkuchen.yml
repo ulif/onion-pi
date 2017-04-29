@@ -31,6 +31,9 @@
   - name: enable ipv4 forwarding immediately
     become: true
     shell: echo 1 > /proc/sys/net/ipv4/ip_forward
+  - name: save iptables
+    become: true
+    shell: iptables-save > /etc/iptables/rules.v4
 
   tasks:
   - name: Update system
@@ -141,3 +144,31 @@
         regexp: "^#net.ipv4.ip_forward=1"
         replace: "net.ipv4.ip_forward=1"
     notify: enable ipv4 forwarding immediately
+
+  - name: setup iptables step 1/3
+    become: true
+    iptables:
+        table: nat
+        chain: POSTROUTING
+        out_interface: wlan0
+        jump: MASQUERADE
+    notify: save iptables
+
+  - name: setup iptables step 2/3
+    become: true
+    iptables:
+        chain: FORWARD
+        in_interface: wlan0
+        out_interface: wlan1
+        ctstate: RELATED,ESTABLISHED
+        jump: ACCEPT
+    notify: save iptables
+
+  - name: setup iptables step 3/3
+    become: true
+    iptables:
+        chain: FORWARD
+        in_interface: wlan1
+        out_interface: wlan0
+        jump: ACCEPT
+    notify: save iptables
