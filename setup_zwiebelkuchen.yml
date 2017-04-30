@@ -134,6 +134,15 @@
         replace: 'DAEMON_CONF="/etc/hostapd/hostapd.conf"'
     notify: restart hostapd
 
+  - name: set hostapd.conf location in /etc/init.d
+    become: true
+    replace:
+        dest: "/etc/init.d/hostapd"
+        regexp: '^DAEMON_CONF=$'
+        replace: 'DAEMON_CONF=/etc/hostapd/hostapd.conf'
+    notify: restart hostapd
+
+
   #
   # setup NAT
   #
