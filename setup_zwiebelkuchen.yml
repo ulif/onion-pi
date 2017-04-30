@@ -181,3 +181,26 @@
         out_interface: wlan0
         jump: ACCEPT
     notify: save iptables
+
+  #
+  # install hostapd with realtek support
+  #
+  - name: fetch precompiled binary from adafruit
+    become: false
+    get_url:
+        url: http://adafruit-download.s3.amazonaws.com/adafruit_hostapd_14128.zip
+        dest: /home/{{ ansible_ssh_user }}/adafruit_hostapd.zip
+        checksum: sha256:abb9eb6bf8ffd2d334f7e47c7c0c5e4f1185264baf743c0e4796163c50ad9607
+
+  - name: unpack adafruit hostapd
+    become: false
+    unarchive:
+        src: /home/{{ ansible_ssh_user }}/adafruit_hostapd.zip
+        dest: /home/{{ ansible_ssh_user }}/
+        copy: no
+
+  - name: install hostapd replacement
+    become: true
+    command: rsync -c -b --suffix="-ORIG" /home/{{ ansible_user }}/hostapd /usr/sbin/hostapd
+    args:
+        creates: /usr/sbin/hostapd-ORIG
