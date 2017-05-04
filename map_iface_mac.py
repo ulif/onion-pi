@@ -1,11 +1,12 @@
 #
-# Output
+# For all local network devices output
 #
 #   devicename bustype drivername mac-address
 #
-# for all network devices that provide these infos. bustype is normally "usb",
-# "pci" or "-". `mac-address` comes in "aa:bb:cc..." hexadecimal notation.
+# if these infos are provided by system. bustype is normally "usb", "pci",
+# "sdio" or "-". `mac-address` comes in "aa:bb:cc..." notation.
 #
+# This script requires a fairly recent Linux system.
 import os
 
 for dev in os.listdir("/sys/class/net/"):
@@ -14,9 +15,9 @@ for dev in os.listdir("/sys/class/net/"):
         continue
     drivers = os.listdir(drivers_path)
     for driver in drivers:
-        bus, drivername = '', driver
+        bus, drivername = '-', driver
         if ":" in driver:
             bus, drivername = driver.split(':', 1)
         with open("/sys/class/net/%s/address" % dev, "r") as fd:
-            mac = fd.read()
+            mac = fd.read().strip()
         print(" ".join([dev, bus, drivername, mac]))
