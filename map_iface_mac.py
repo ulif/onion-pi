@@ -11,6 +11,11 @@ import os
 
 
 def get_iface_infos():
+    """Get infos about local network interfaces
+
+    Returns a list of dicts, each one providing: `iface`, `bus`, `driver`, and
+    `mac` infos.
+    """
     infos = []
     for dev in os.listdir("/sys/class/net/"):
         drivers_path = "/sys/class/net/%s/device/driver/module/drivers" % dev
