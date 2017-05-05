@@ -10,6 +10,11 @@
 import os
 
 
+UDEV_RULE = (
+    'SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="%s", '
+    'ATTR{dev_id}=="0x0", ATTR{type}=="1", KERNEL=="wlan*", NAME="wlan0"')
+
+
 def get_iface_infos():
     """Get infos about local network interfaces
 
@@ -34,3 +39,4 @@ def get_iface_infos():
 
 for info in get_iface_infos():
     print(" ".join([info['iface'], info['bus'], info['driver'], info['mac']]))
+    print(UDEV_RULE % info['mac'])
