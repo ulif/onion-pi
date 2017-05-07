@@ -1,10 +1,13 @@
 #
-# For all local network devices output
+# Helpers to determine local network devices.
 #
-#   devicename bustype drivername mac-address
+# Can also install a udev rule to pin down a raspberrypi3 builtin nic to
+# `wlan0` and check whether this rule was already applied to the system.
 #
-# if these infos are provided by system. bustype is normally "usb", "pci",
-# "sdio" or "-". `mac-address` comes in "aa:bb:cc..." notation.
+# Usage: <scriptname> [check|install]
+#
+# Without any command, we list all found devices with some data. For each
+# device we show kernel name, bus type, driver name, and mac address.
 #
 # This script requires a fairly recent Debian (or derived) system. Tested with
 # Raspbian.
@@ -59,6 +62,10 @@ def is_udev_rule_installed(info, rule):
 
 
 def get_builtin_wlan_dev():
+    """Returns info about the raspberrypi3 builtin wifi device (if found).
+
+    If no such device is found, return None.
+    """
     for info in get_iface_infos():
         if info['driver'] != 'brcmfmac':
             continue
@@ -71,6 +78,8 @@ def get_builtin_wlan_dev():
 
 
 def install_udev_rule():
+    """Register the builtin wifi device of raspverrypi3 as `wlan0` on boot.
+    """
     info = get_builtin_wlan_dev()
     rule = UDEV_RULE % info['mac']
     if is_udev_rule_installed(info, rule):
@@ -81,6 +90,8 @@ def install_udev_rule():
 
 
 def main():
+    """Evaluate given commandline args and execute requested commands.
+    """
     try:
         opts, args = getopt.getopt(sys.argv[1:], "", [])
     except getopt.GetoptError as err:
