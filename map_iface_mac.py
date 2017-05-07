@@ -53,8 +53,22 @@ def is_udev_rule_installed(info, rule):
     return False
 
 
+def get_builtin_wlan_dev():
+    for info in get_iface_infos():
+        if info['driver'] != 'brcmfmac':
+            continue
+        if info['bus'] != 'sdio':
+            continue
+        if not info['mac'].startswith('b8:27'):
+            continue
+        return info
+    return None
+
+
 for info in get_iface_infos():
     print(" ".join([info['iface'], info['bus'], info['driver'], info['mac']]))
     rule = UDEV_RULE % info['mac']
     print(rule)
     print(is_udev_rule_installed(info, rule))
+
+print(get_builtin_wlan_dev())
