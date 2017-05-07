@@ -6,7 +6,9 @@
 # if these infos are provided by system. bustype is normally "usb", "pci",
 # "sdio" or "-". `mac-address` comes in "aa:bb:cc..." notation.
 #
-# This script requires a fairly recent Linux system.
+# This script requires a fairly recent Debian (or derived) system. Tested with
+# Raspbian.
+#
 import os
 
 
