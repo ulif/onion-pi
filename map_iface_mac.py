@@ -15,6 +15,9 @@ UDEV_RULE = (
     'ATTR{dev_id}=="0x0", ATTR{type}=="1", KERNEL=="wlan*", NAME="wlan0"')
 
 
+UDEV_RULES_PATH = "/etc/udev/rules.d/70-persistent-net.rules"
+
+
 def get_iface_infos():
     """Get infos about local network interfaces
 
@@ -37,6 +40,21 @@ def get_iface_infos():
     return infos
 
 
+def is_udev_rule_installed(info, rule):
+    """Check whether our specific udev rule is installed already.
+    """
+    if not os.path.exists(UDEV_RULES_PATH):
+        return False
+    with open(UDEV_RULES_PATH, "r") as fd:
+        rules = fd.read()
+    for installed_rule in rules:
+        if rule == installed_rule:
+            return True
+    return False
+
+
 for info in get_iface_infos():
     print(" ".join([info['iface'], info['bus'], info['driver'], info['mac']]))
-    print(UDEV_RULE % info['mac'])
+    rule = UDEV_RULE % info['mac']
+    print(rule)
+    print(is_udev_rule_installed(info, rule))
