@@ -67,10 +67,14 @@ def get_builtin_wlan_dev():
     return None
 
 
-for info in get_iface_infos():
-    print(" ".join([info['iface'], info['bus'], info['driver'], info['mac']]))
+def install_udev_rule():
+    info = get_builtin_wlan_dev()
     rule = UDEV_RULE % info['mac']
-    print(rule)
-    print(is_udev_rule_installed(info, rule))
+    if is_udev_rule_installed(info, rule):
+        return
+    with open(UDEV_RULES_PATH, "a") as fd:
+        fd.write(rule)
+    print("written rule\n  %s\nto %s" % rule, UDEV_RULES_PATH)
+
 
 print(get_builtin_wlan_dev())
