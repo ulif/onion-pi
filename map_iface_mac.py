@@ -9,7 +9,10 @@
 # This script requires a fairly recent Debian (or derived) system. Tested with
 # Raspbian.
 #
+import getopt
+import json
 import os
+import sys
 
 
 UDEV_RULE = (
@@ -77,4 +80,28 @@ def install_udev_rule():
     print("written rule\n  %s\nto %s" % rule, UDEV_RULES_PATH)
 
 
-print(get_builtin_wlan_dev())
+def main():
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "", [])
+    except getopt.GetoptError as err:
+        print(err)
+        print("Usage: %s [install|check]" % sys.argv[0])
+        sys.exit(2)
+    if len(args) != 1:
+        print(json.dumps(get_iface_infos(), indent=4, sort_keys=True))
+        sys.exit()
+    if args[0] == "check":
+        info = get_builtin_wlan_dev()
+        rule = UDEV_RULE % info['mac']
+        if is_udev_rule_installed(get_builtin_wlan_dev(), rule):
+            print("installed")
+        else:
+            print("not installed")
+            sys.exit()
+    elif args[0] == "install":
+        install_udev_rule()
+        sys.exit()
+
+
+if __name__ == '__main__':
+    main()
