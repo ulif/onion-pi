@@ -86,7 +86,7 @@ def install_udev_rule():
         return
     with open(UDEV_RULES_PATH, "a") as fd:
         fd.write(rule)
-    print("written rule\n  %s\nto %s" % rule, UDEV_RULES_PATH)
+    print("written rule\n  %s\nto %s" % (rule, UDEV_RULES_PATH))
 
 
 def main():
