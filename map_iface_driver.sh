@@ -1,5 +1,14 @@
 #!/bin/bash
-
+#
+# Set udev rule to persist raspberry pi 3 builtin wifi to name 'wlan0'.
+#
+# Copyright (C) 2017, ulif <uli@gnufix.de>, GPL v3
+#
+# We expect the builtin wifi device to be driven by "brcmfmac" driver and being
+# active on the "sdio" bus.
+#
+# This script was written for use with a raspberrypi3 and raspbian.
+#
 set -e
 
 MAC=`ls -d /sys/class/net/*/device/driver/module/drivers/* \
