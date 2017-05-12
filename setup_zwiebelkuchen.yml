@@ -21,7 +21,7 @@
   - name: restart dhcpd
     become: true
     service:
-        name: "dhcpcd"
+        name: "isc-dhcp-server"
         state: restarted
   - name: restart hostapd
     become: true
