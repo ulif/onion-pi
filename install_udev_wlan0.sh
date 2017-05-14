@@ -22,8 +22,7 @@ if [ -z "$MAC" ] ; then
     exit 1 ;
 fi
 
-RULE='SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="'$MAC'", '
-RULE+='ATTR{dev_id}=="0x0", ATTR{type}=="1", KERNEL=="wlan*", NAME="wlan0"'
+RULE='KERNEL=="wlan*", ATTR{address}=="'$MAC'", NAME="wlan0"'
 
 echo "Pinning builtin wifi to name 'wlan0' via udev rule in /etc/udev/rules.d/70-persistent-net.rules"
 echo "$RULE" >> "/etc/udev/rules.d/70-persistent-net.rules"
