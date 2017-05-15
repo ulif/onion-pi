@@ -213,3 +213,28 @@
     command: rsync -c -b --suffix="-ORIG" /home/{{ ansible_user }}/hostapd /usr/sbin/hostapd
     args:
         creates: /usr/sbin/hostapd-ORIG
+
+  #
+  # activate new services
+  #
+  - name: activate service hostapd
+    become: true
+    systemd:
+        name: hostapd
+        state: started
+        enabled: true
+
+  - name: enable service hostapd really
+    become: true
+    command: update-rc.d hostapd enable
+
+  - name: activate service isc-dhcpd-server
+    become: true
+    systemd:
+        name: isc-dhcp-server
+        state: started
+        enabled: true
+
+  - name: enable service isc-dhcp-server really
+    become: true
+    command: update-rc.d isc-dhcp-server enable
