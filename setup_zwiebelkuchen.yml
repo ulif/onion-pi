@@ -50,6 +50,7 @@
         - "hostapd"
         - "isc-dhcp-server"
         - "iptables-persistent"
+        - "tor"
 
   #
   # Pin wlan device names
