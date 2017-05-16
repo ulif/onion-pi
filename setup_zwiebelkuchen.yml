@@ -193,6 +193,7 @@
 
   #
   # install hostapd with realtek support
+  # XXX: This must be removed in the long run
   #
   - name: fetch precompiled binary from adafruit
     become: false
