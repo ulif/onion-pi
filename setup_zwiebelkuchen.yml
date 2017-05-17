@@ -34,6 +34,11 @@
   - name: save iptables
     become: true
     shell: iptables-save > /etc/iptables/rules.v4
+  - name: restart tor
+    become: true
+    service:
+        name: "tor"
+        state: restarted
 
   tasks:
   - name: Update system
@@ -230,7 +235,7 @@
             TransListenAddress 192.168.42.1
             DNSPort 53
             DNSListenAddress 192.168.42.1
-
+    notify: restart tor
 
   #
   # activate new services
