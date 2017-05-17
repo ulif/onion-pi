@@ -216,6 +216,22 @@
     args:
         creates: /usr/sbin/hostapd-ORIG
 
+  - name: tweak torrc
+    become: true
+    blockinfile:
+        dest: "/etc/tor/torrc"
+        insertafter: "^## https://www.torproject.org/docs/faq#torrc"
+        block: |
+            Log notice file /var/log/tor/notices.log
+            VirtualAddrNetwork 10.192.0.0/10
+            AutomapHostsSuffixes .onion,.exit
+            AutomapHostsOnResolve 1
+            TransPort 9040
+            TransListenAddress 192.168.42.1
+            DNSPort 53
+            DNSListenAddress 192.168.42.1
+
+
   #
   # activate new services
   #
