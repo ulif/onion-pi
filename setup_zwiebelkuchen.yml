@@ -303,3 +303,10 @@
   - name: enable service isc-dhcp-server really
     become: true
     command: update-rc.d isc-dhcp-server enable
+
+  - name: enable service tor
+    become: true
+    systemd:
+        name: tor
+        state: started
+        enabled: true
