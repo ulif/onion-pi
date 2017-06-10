@@ -210,43 +210,15 @@
             DNSListenAddress 192.168.42.1
     notify: restart tor
 
-  - name: allow port 22 in firewall
+  - name: install ipv4 firewall rules
     become: true
-    iptables:
-        table: nat
-        chain: PREROUTING
-        in_interface: wlan1
-        protocol: tcp
-        destination_port: 22
-        jump: REDIRECT
-        to_ports: 22
-    notify: save iptables
-
-  - name: route dns/53 to internal
-    become: true
-    iptables:
-        table: nat
-        chain: PREROUTING
-        in_interface: wlan1
-        protocol: udp
-        destination_port: 53
-        jump: REDIRECT
-        to_ports: 53
-    notify: save iptables
-
-  # XXX: This should be "--syn" instead of state NEW
-  - name: route tcp traffic to local tor
-    become: true
-    iptables:
-        table: nat
-        chain: PREROUTING
-        in_interface: wlan1
-        protocol: tcp
-        ctstate: NEW
-        jump: REDIRECT
-        to_ports: 9040
-    notify: save iptables
-
+    copy:
+        src: "rules.v4"
+        dest: "/etc/iptables/rules.v4"
+        owner: root
+        group: root
+        mode: 0644
+        backup: yes
 
   #
   # activate new services
