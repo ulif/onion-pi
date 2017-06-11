@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Set udev rule to persist raspberry pi 3 builtin wifi to name 'wlan0'.
+# Set udev rule to persist raspberry pi 3 builtin wifi to name 'wlan1'.
 #
 # Copyright (C) 2017, ulif <uli@gnufix.de>, GPL v3
 #
@@ -22,7 +22,7 @@ if [ -z "$MAC" ] ; then
     exit 1 ;
 fi
 
-RULE='KERNEL=="wlan*", ATTR{address}=="'$MAC'", NAME="wlan0"'
+RULE='KERNEL=="wlan*", ATTR{address}=="'$MAC'", NAME="wlan1"'
 
-echo "Pinning builtin wifi to name 'wlan0' via udev rule in /etc/udev/rules.d/70-persistent-net.rules"
+echo "Pinning builtin wifi to name 'wlan1' via udev rule in /etc/udev/rules.d/70-persistent-net.rules"
 echo "$RULE" >> "/etc/udev/rules.d/70-persistent-net.rules"
