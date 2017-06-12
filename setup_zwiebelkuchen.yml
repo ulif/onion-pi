@@ -8,7 +8,7 @@
 # with the real IP used instead.
 #
 # You may want to fiddle with the settings in `vars`. The DNS servers used are
-# from CCC Berlin and from DigitalCourage/FoebuD
+# from CCC Berlin and from Digitalcourage/FoebuD
 #
 - hosts: all
   become: false
