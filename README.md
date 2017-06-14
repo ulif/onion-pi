@@ -127,6 +127,8 @@ When done, choose "Finish" and reboot.
 
 ### 3) Setup first Wifi
 
+If not done already, plug in the USB wifi adapter into your raspi.
+
 We need internet access to complete the next steps. This step depends on your
 local networks.
 
@@ -148,7 +150,7 @@ To add a network without password add something like:
 For networks with a password you want to run `wpa_passphrase`:
 
     (raspi) $ sudo bash
-    (raspi) # wpa_passphrase <SSID> <PASSWORD> >> /etc/wpa_supplicant/wpa_supplicant.conf
+    (raspi) # wpa_passphrase '<SSID>' '<PASSWORD>' >> /etc/wpa_supplicant/wpa_supplicant.conf
     (raspi) # exit
 
 Afterwards a wifi restart is required. This can be done with:
@@ -158,11 +160,14 @@ Afterwards a wifi restart is required. This can be done with:
     OK
 
 The negotiations might take some seconds, so you should wait for some time,
-until the new connection will be established.
+until the new connection will be established. Keep the displayed interface name
+in mind (``wlan0`` or ``wlan1``).
 
 You can get the IP number assigned by running
 
     (raspi) $ ifconfig wlan0
+
+where `wlan0` is the interface name displayed before.
 
 There should be one line starting with `inet` or `inet6` stating the current
 IP.
@@ -175,12 +180,65 @@ You must complete this step at least once to enable flawless `ansible` runs
 later on.
 
 
-## Install Accesspoint
-
-Before we proceed, we need internet access from the zwiebelkuchen.
+## Prepare `ansible`
 
 
+We will use `ansible` to provision `zwiebelkuchen` with all software/settings
+needed. Make sure you have version 2.x installed on the host where you also
+have SSH access to the `zwiebelkuchen`.
+
+In the end the following command should succeed without any error message:
+
+    (laptop) $ ansible -i <RASPI-IP>, all -b -k -u pi -m setup
+
+and output lots of infos gathered about the raspi (please mind the trailing
+comma behind the IP).
 
 
-## Install tor
+## Run `ansible` turn ordinary raspi into a `zwiebelkuchen`
 
+Before we proceed, we need internet access from the `zwiebelkuchen`.
+
+Log into your `raspi` and update the system:
+
+    (raspi) $ sudo apt-get update
+    (raspi) $ sudo apt-get upgrade
+
+If packages have been upgraded during this step (consult the display output), a
+system restart is recommended or even required before you proceed.
+
+    (raspi) $ sudo reboot
+
+After reboot, run the ansible playbook `setup_zwiebelkuchen.yml` from the computer
+which has SSH access to your `zwiebelkuchen`:
+
+    $ ansible-playbook -i <RASPI-IP>, -b -u pi -k setup_zwiebelkuchen.yml
+
+This step will normally take some time. Afterwards restart the raspi
+
+    (raspi) $ sudo restart
+
+and enjoy.
+
+
+## Access your `zwiebelkuchen`
+
+Did it work? You can try with your laptop.
+
+First, look what networks are available to connect to. There should be an
+additional network called ``zwiebelkuchen``. Connect to it.
+
+The network is encrypted and therefore we need a password. The default password is
+
+   tor-tor-tooor
+
+and set in `/etc/hostapd/hostapd.conf`.
+
+If you can connect to the network, try to browse some site. As `ping` does not
+work, you can for instance browse
+
+    https://check.torproject.org
+
+to check under which IP you are seen in the internet. This page can tell
+whether you look like using `tor` or not. It might also complain that you do
+not use the `torbrowser`.
