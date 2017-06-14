@@ -48,9 +48,9 @@ If so, you can unzip the file with
 but it is not neccessary for our purposes. We will unzip the file on-the-fly
 and write the contents to a locally attached SD card:
 
-    $ zcat 2017-04-10-raspbian-jessie-lite.zip | dd of=/dev/sdXX bs=4M
+    $ zcat 2017-04-10-raspbian-jessie-lite.zip | dd of=/dev/sdX bs=4M
 
-where ``/dev/sdXX`` refers to your SD-card.
+where ``/dev/sdX`` refers to your SD-card.
 
 
 ### 2) Enable UART Access
