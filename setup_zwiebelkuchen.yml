@@ -28,9 +28,9 @@
     service:
         name: "hostapd"
         state: restarted
-  - name: enable ipv4 forwarding immediately
+  - name: disable ipv4 forwarding immediately
     become: true
-    shell: echo 1 > /proc/sys/net/ipv4/ip_forward
+    shell: echo 0 > /proc/sys/net/ipv4/ip_forward
   - name: restart tor
     become: true
     service:
@@ -155,13 +155,13 @@
         replace: 'DAEMON_CONF=/etc/hostapd/hostapd.conf'
     notify: restart hostapd
 
-  - name: activate ipv4 forwarding at boot time
+  - name: deactivate ipv4 forwarding at boot time
     become: true
     replace:
         dest: "/etc/sysctl.conf"
-        regexp: "^#net.ipv4.ip_forward=1"
-        replace: "net.ipv4.ip_forward=1"
-    notify: enable ipv4 forwarding immediately
+        regexp: "^net.ipv4.ip_forward=1"
+        replace: "#net.ipv4.ip_forward=1"
+    notify: disable ipv4 forwarding immediately
 
   #
   # install tor and related fw rules
