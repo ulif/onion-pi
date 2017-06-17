@@ -242,3 +242,15 @@ work, you can for instance browse
 to check under which IP you are seen in the internet. This page can tell
 whether you look like using `tor` or not. It might also complain that you do
 not use the `torbrowser`.
+
+
+## Differences from Core Adafruit Build
+
+The deployment shown here tries to follow closely the more or less canonical
+'Adafruit' recipe as described at:
+
+    https://learn.adafruit.com/onion-pi/overview
+
+Some things, howerver, were changed:
+
+  - we do not activate ipv4 forwarding. Instead we make sure its turned off.
