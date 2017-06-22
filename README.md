@@ -2,6 +2,11 @@
 Turn a standard Raspbian install into a [tor](https://torproject.org)-ified
 wifi access point with [ansible](https://www.ansible.com/).
 
+This is the ``Zwiebelkuchen`` (German for onion pie) edition of stock adafruit
+onion-pi.
+
+This build is different from the original in some minor details. See the list
+at end of this document for details.
 
 ## Ingredients
 
@@ -244,13 +249,16 @@ whether you look like using `tor` or not. It might also complain that you do
 not use the `torbrowser`.
 
 
-## Differences from Core Adafruit Build
+# Differences to Regular Adafruit Onion-pi Setup
 
 The deployment shown here tries to follow closely the more or less canonical
 'Adafruit' recipe as described at:
 
     https://learn.adafruit.com/onion-pi/overview
 
-Some things, howerver, were changed:
+Some things, however, were changed:
 
-  - we do not activate ipv4 forwarding. Instead we make sure its turned off.
+- IPv4 forwarding is not activated. Instead we make sure its turned off.
+
+  There is no reason to forward all ipv4 packets if they cannot be handled as
+  regular tor traffic.
