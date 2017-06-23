@@ -202,10 +202,6 @@
         state: started
         enabled: true
 
-  - name: enable service hostapd really
-    become: true
-    command: update-rc.d hostapd enable
-
   - name: activate service isc-dhcpd-server
     become: true
     systemd:
