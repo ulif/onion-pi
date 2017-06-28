@@ -1,0 +1,5 @@
+# Register the raspberrypi3 builtin wifi device as 'wlan1'
+#
+# We identify the device by driver ('brcmfmac') and bus ('sdio', not 'usb').
+# Zwiebelkuchen needs a device as wlan1 that supports AP mode.
+KERNEL=="wlan*", SUBSYSTEMS=="sdio", DRIVERS=="brcmfmac", NAME="wlan1"
