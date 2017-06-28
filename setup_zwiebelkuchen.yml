@@ -58,11 +58,15 @@
   #
   # Pin wlan device names
   #
-  - name: pin wlan0 to builtin wifi device
+  - name: pin wlan1 to builtin wifi device
     become: true
-    script: install_udev_wlan0.sh
-    args:
-        creates: /etc/udev/rules.d/70-persistent-net.rules
+    copy:
+        src: "70-persistent-net.rules"
+        dest: "/etc/udev/rules.d/70-persistent-net.rules"
+        owner: root
+        group: root
+        mode: 0644
+        backup: yes
 
   #
   # configure dhcpd
