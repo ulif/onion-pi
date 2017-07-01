@@ -221,7 +221,7 @@ which has SSH access to your `zwiebelkuchen`:
 
 This step will normally take some time. Afterwards restart the raspi
 
-    (raspi) $ sudo restart
+    (raspi) $ sudo reboot
 
 and enjoy.
 
