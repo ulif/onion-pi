@@ -262,3 +262,8 @@ Some things, however, were changed:
 
   There is no reason to forward all ipv4 packets if they cannot be handled as
   regular tor traffic.
+
+- `/etc/init.d/hostapd` script is not changed.
+
+  We do not set a default `DAEMON_CONF` in the init.d-script, because it gets
+  any value from `/etc/default/hostapd`.
