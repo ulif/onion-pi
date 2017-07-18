@@ -56,6 +56,16 @@
         - "tor"
 
   #
+  # Enable unattended upgrades
+  #
+  - name: enable unattended upgrades setting an origin-pattern
+    become: true
+    replace:
+        dest: "/etc/apt/apt.conf.d/50unattended-upgrades"
+        regexp: '^//      "o=Raspbian,n=jessie";'
+        replace: '        "o=Raspbian,n=jessie";'
+
+  #
   # Pin wlan device names
   #
   - name: pin wlan1 to builtin wifi device
