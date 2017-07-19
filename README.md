@@ -267,3 +267,5 @@ Some things, however, were changed:
 
   We do not set a default `DAEMON_CONF` in the init.d-script, because it gets
   any value from `/etc/default/hostapd`.
+
+- We additionally install and configure `unattended-upgrades`.
