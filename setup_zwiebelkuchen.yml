@@ -49,6 +49,7 @@
         state: present
     with_items:
         - "unattended-upgrades"
+        - "anacron"
         - "rng-tools"
         - "hostapd"
         - "isc-dhcp-server"
