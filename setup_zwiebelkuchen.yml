@@ -49,7 +49,6 @@
         state: present
     with_items:
         - "unattended-upgrades"
-        - "anacron"
         - "rng-tools"
         - "hostapd"
         - "isc-dhcp-server"
@@ -65,6 +64,14 @@
         dest: "/etc/apt/apt.conf.d/50unattended-upgrades"
         regexp: '^//      "o=Raspbian,n=jessie";'
         replace: '        "o=Raspbian,n=jessie";'
+
+  - name: start unattended-upgrades every other hour
+    become: true
+    cron:
+        name: "system-update"
+        minute: '39'
+        hour: '*/2'
+        job: '/usr/bin/unattended-upgrade'
 
   - name: enable periodic updates
     become: true
