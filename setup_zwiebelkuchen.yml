@@ -73,16 +73,6 @@
         hour: '*/2'
         job: '/usr/bin/unattended-upgrade'
 
-  - name: enable periodic updates
-    become: true
-    copy:
-        src: "02periodic"
-        dest: "/etc/apt/apt.conf.d/02periodic"
-        owner: root
-        group: root
-        mode: 0644
-        backup: yes
-
   #
   # Pin wlan device names
   #
