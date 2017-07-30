@@ -269,3 +269,5 @@ Some things, however, were changed:
   any value from `/etc/default/hostapd`.
 
 - We additionally install and configure `unattended-upgrades`.
+
+  Updates are triggered by a cronjob every other hour.
