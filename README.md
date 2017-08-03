@@ -235,7 +235,7 @@ additional network called ``zwiebelkuchen``. Connect to it.
 
 The network is encrypted and therefore we need a password. The default password is
 
-   tor-tor-tooor
+    tor
 
 and set in `/etc/hostapd/hostapd.conf`.
 
