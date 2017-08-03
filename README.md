@@ -37,7 +37,8 @@ We will use the lite image of Raspbian Jessie as provided at
   https://www.raspberrypi.org/downloads/raspbian/
 
 Afterwards you should have a file named ``2017-04-10-raspbian-jessie-lite.zip``
-or similar. This ZIP archive should contain one big image file.
+or similar (depending on the current date). This ZIP archive should contain one
+big image file.
 
 Check the sha1 sum of the file:
 
@@ -265,8 +266,8 @@ Some things, however, were changed:
 
 - `/etc/init.d/hostapd` script is not changed.
 
-  We do not set a default `DAEMON_CONF` in the init.d-script, because it gets
-  any value from `/etc/default/hostapd`.
+  We do not set a default `DAEMON_CONF` in the init.d-script, because this
+  value should be set only in `/etc/default/hostapd`.
 
 - We additionally install and configure `unattended-upgrades`.
 
